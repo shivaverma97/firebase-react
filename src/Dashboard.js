@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useAuth } from './contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Dashboard() {
     
@@ -29,6 +29,8 @@ export default function Dashboard() {
     <div>
         Logged in successfully
         {error && <div>{error}</div>}
+        <br></br>
+        <p><Link to="/updateprofile">Update Profile</Link></p>
         <br></br>
         <button className='logout-btn' disabled={loading} onClick={handleOnClick}>Log Out</button>
     </div>

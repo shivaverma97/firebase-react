@@ -1,23 +1,23 @@
 import React, { useRef, useState } from 'react'
 import { useAuth } from './contexts/AuthContext'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
-export default function LogIn() {
+export default function ResetPassword() {
     const emailRef = useRef()
-    const passRef = useRef()
-    const { logIn } = useAuth()
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate()
+    const {resetPassword} = useAuth()
+    const [message, setMessage] = useState('')
 
-    async function handleOnLogIn(e) {
+    async function handleReset(e) {
         e.preventDefault()
 
         try {
             setError('')
             setLoading(true)
-            await logIn(emailRef.current.value, passRef.current.value)
-            navigate("/")
+            setMessage('')
+            await resetPassword(emailRef.current.value)
+            setMessage("Email sent successfully. Please check your inbox.")
             setLoading(false)
         } catch (ex) {
             setLoading(false)
@@ -27,26 +27,20 @@ export default function LogIn() {
 
     return (
         <div>
-            <form className="modal-content" onSubmit={handleOnLogIn}>
+            <form className="modal-content" onSubmit={handleReset}>
                 <div className="container">
-                    <h1>Log In</h1>
+                    <h1>Reset Password</h1>
                     {error && <div className='error-message'>{error}</div>}
+                    {message && <div className='message'>{message}</div>}
                     <hr />
                     <label htmlFor="email"><b>Email</b></label>
                     <input type="text" placeholder="Enter Email" name="email" ref={emailRef} required />
 
-                    <label htmlFor="psw"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="psw" ref={passRef} required />
-
-                    <label>
-                        <input type="checkbox" checked="checked" name="remember" style={{ marginBottom: "15px" }} />Remember me
-                    </label>
-
                     <div className="clearfix">
                         <button type="button" className="cancelbtn">Cancel</button>
-                        <button type="submit" className="signupbtn" disabled={loading}>Log In</button>
+                        <button type="submit" className="signupbtn" disabled={loading}>Send Email</button>
                     </div>
-                    <p><Link to="/resetpassword">Forgot Password?</Link></p>
+                    <p><Link to="/login">Log In</Link></p>
                     <p>Don't have an account? <Link to="/signup">Sign Up here</Link></p>
                 </div>
             </form>

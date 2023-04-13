@@ -38,7 +38,7 @@ export default function SignUp() {
                     {error && <div className='error-message'>{error}</div>}
                     <hr />
                     <label htmlFor="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" ref={emailRef} required />
+                    <input type="email" placeholder="Enter Email" name="email" ref={emailRef} required />
 
                     <label htmlFor="psw"><b>Password</b></label>
                     <input type="password" placeholder="Enter Password" name="psw" ref={passRef} required />
